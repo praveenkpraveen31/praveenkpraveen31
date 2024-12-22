@@ -1,0 +1,746 @@
+# windowsFinding
+
+### **Microsoft Windows SMBv1 Multiple Vulnerabilities**
+
+Discovered and Potential Vulnerabilities 3.1. Critical Vulnerabilities 3.1.1. Microsoft Windows: CVE-2017-0146: Windows SMB Remote Code Execution Vulnerability (msft-cve-2017-0146)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/41302bc8-5d02-40f6-a4e5-dcb549e9fa32/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/fb658d8d-fe5d-492e-bac5-e5417db628e3/image.png)
+
+Verification:
+
+- while running system scan with `nessus` we discovered smb is vulnerable
+- after failing at gaining reverse shell with `eternal blue`
+- we tried `eternal romance/eternal synergy` remote code execution with metasploit and were successful.
+
+### SMB: Service supports deprecated SMBv1 protocol (cifs-smb1-deprecated)
+
+Description:
+The SMB1 protocol has been deprecated since 2014 and is considered obsolete and insecure.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/41881582-7aeb-495c-84b0-d8621fc0102c/image.png)
+
+Verification:
+
+- A system scan with `nessus` reviled that SMB service supports deprecated SMBv1 protocol
+- A network scan with `nmap` with vuln script confirmed this finding
+
+### DNS server allows cache snooping (dns-allows-cache-snooping)
+
+Description:
+This DNS server is susceptible to DNS cache snooping, whereby an attacker can make non-recursive queries to a DNS server, looking for records potentially already resolved by this DNS server for other clients. Depending on the response, an attacker can use this information to potentially launch other attacks.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/c5671cdf-b66b-4af3-9d49-624a7727103e/image.png)
+
+Verification:
+
+- A system scan with `nessus` reviled that DNS server allows cache snooping
+
+### Nameserver Processes Recursive Queries (dns-processes-recursive-queries)
+
+Description:
+Allowing nameservers to process recursive queries coming from any system may, in certain situations, help attackers conduct denial of service or cache poisoning attacks.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/e651ae80-4a5d-48e0-8870-b694c180aa3a/image.png)
+
+Verification:
+
+- A system scan with `nessus` reviled that Nameserver Processes Recursive queries
+
+### Microsoft IIS default installation/welcome page installed (http-iis-default-install-page)
+
+Description:
+The IIS default installation or "Welcome" page is installed on this server. This usually indicates a newly installed server which has not yet been configured properly and which may not be known about. In many cases, IIS is installed by default and the user may not be aware that the web server is running. These servers are rarely patched and rarely monitored, providing hackers with a convenient target that is not likely to trip any alarms.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/3de18daa-5aeb-49cc-8634-b4338d3a9734/image.png)
+
+Verification:
+
+- A system scan with `nessus` reviled that Microsoft IIS default installation/welcome page installed
+- after visit the webpage we confirmed this finding
+
+### HTTP OPTIONS Method Enabled (http-options-method-enabled)
+
+Description:
+Web servers that respond to the OPTIONS HTTP method expose what other methods are supported by the web server, allowing attackers to narrow and intensify their efforts.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/eab495a5-30ee-4fee-8d68-703facdc1fd8/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/3b65d976-43ce-403c-a9da-c6183eda096c/image.png)
+
+Verification:
+
+- A system scan with `nessus` reviled that HTTP OPTIONS method is enable
+- using postman we can confirm this in header section
+
+### TCP timestamp response (generic-tcp-timestamp)
+
+Description:
+The remote host responded with a TCP timestamp. The TCP timestamp response can be used to approximate the remote host's uptime, potentially aiding in further attacks. Additionally, some operating systems can be fingerprinted based on the behavior of their TCP timestamps.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/316e7ff3-c024-4afd-ae41-8528487b2b11/image.png)
+
+Verification:
+
+- A system scan with `nessus` reviled that TCP response includes timestamps
+
+### NetBIOS NBSTAT Traffic Amplification (netbios-nbstat-amplification)
+
+Description:
+A NetBIOS NBSTAT query will obtain the status from a NetBIOS-speaking endpoint, which will include any names that the endpoint is known to respond to as well as the device's MAC address for that endpoint. A NBSTAT response is roughly 3x the size of the request, and because NetBIOS utilizes UDP, this can be used to conduct traffic amplification attacks against other assets, typically in the form of distributed reflected denial of service (DRDoS) attacks.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/16377ce4-459c-4e31-8855-010d5920b634/image.png)
+
+### CIFS
+
+CIFS, the Common Internet File System, was defined by Microsoft to provide file sharing services over the Internet. CIFS extends the Server Message Block (SMB) protocol designed by IBM and enhanced by Intel and Microsoft. CIFS provides mechanisms for sharing resources (files, printers, etc.) and executing remote procedure calls over named pipes.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/4f49cc7d-91dd-48eb-a109-788bb90b3b3f/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/244db8df-5005-47e6-9ab8-7274932f2508/image.png)
+
+### **Microsoft Windows SMBv1 Multiple Vulnerabilities**
+
+Description
+
+The remote Windows host has Microsoft Server Message Block 1.0 (SMBv1) enabled. It is, therefore, 
+affected by multiple vulnerabilities :
+  - Multiple information disclosure vulnerabilities exist in Microsoft Server Message Block 1.0 (SMBv1) due to improper handling of SMBv1 packets. An unauthenticated, remote attacker can exploit these vulnerabilities, via a specially crafted SMBv1 packet, to disclose sensitive information. (CVE-2017-0267, CVE-2017-0268, CVE-2017-0270, CVE-2017-0271, CVE-2017-0274, CVE-2017-0275, CVE-2017-0276)
+  - Multiple denial of service vulnerabilities exist in Microsoft Server Message Block 1.0 (SMBv1) due to improper handling of requests. An unauthenticated, remote attacker can exploit these 
+vulnerabilities, via a specially crafted SMB request, to cause the system to stop responding. (CVE-2017-0269, CVE-2017-0273, CVE-2017-0280)
+  - Multiple remote code execution vulnerabilities exist in Microsoft Server Message Block 1.0 (SMBv1) due to improper handling of SMBv1 packets. An unauthenticated, remote attacker can exploit these vulnerabilities, via a specially crafted SMBv1 packet, to execute arbitrary code. (CVE-2017-0272, CVE-2017-0277, CVE-2017-0278, CVE-2017-0279)
+
+### **ICMP Timestamp Request Remote Date Disclosure**
+
+Description
+
+The remote host answers to an ICMP timestamp request.  This allows an attacker to know the date 
+that is set on the targeted machine, which may assist an unauthenticated, remote attacker in defeating time-based authentication protocols.
+Timestamps returned from machines running Windows Vista / 7 / 2008 / 2008 R2 are deliberately incorrect, but usually within 1000 seconds of the actual system time.
+
+### **HTTP Methods Allowed (per directory)**
+
+Description
+
+By calling the OPTIONS method, it is possible to determine which HTTP methods are allowed on each directory.The following HTTP methods are considered insecure:
+  PUT, DELETE, CONNECT, TRACE, HEAD
+Many frameworks and languages treat 'HEAD' as a 'GET' request, albeit one without any body in the response. If a security constraint was set on 'GET' requests such that only 'authenticatedUsers' could access GET requests for a particular servlet or resource, it would be bypassed for the 'HEAD' version. This allowed unauthorized blind submission of any privileged GET request.
+As this list may be incomplete, the plugin also tests - if 'Thorough tests' are enabled or 'Enable web applications tests' is set to 'yes' in the scan policy - various known HTTP methods on each directory and considers them as unsupported if it receives a response code of 400, 403, 405, or 501.
+
+### **Crafted Search Request Server Information Disclosure**
+
+Description
+
+By sending a search request with a filter set to 'objectClass=*', it is possible to extract information about the remote LDAP server.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/73b1e70c-143f-4a05-8270-e7447122af12/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/341ccf1f-e70b-4a6b-98e7-04a7fae5af80/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/0c1e43a4-0c2d-437e-b579-a20ed25c39da/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/1d0174c1-4110-4705-8610-83de201efe24/image.png)
+
+### Missing patches
+
+### Missing Anti-clickjacking Header
+
+Poc:-
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/b0e9c5a8-3f48-4d92-95d7-bfb391d8c560/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/20edfcc2-143a-40af-bfb7-5f64aa5379ad/image.png)
+
+### **Missing X-Content-Type-Options Header**
+
+**No `X-Content-Type-Options` header** is present in the response headers.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/7c46d35c-4f64-4f48-ab1a-ed3a82612085/image.png)
+
+**Server Leaks Version Information**
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/2becb09e-82bc-420a-aa96-fb5d0ec982c6/image.png)
+
+**Content-Security-Policy (CSP) missing**
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/c3c7124e-47ac-4e56-b782-67a8c420b10a/image.png)
+
+**smb Anonymous login enabled**
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/ed55651e-dd56-4c64-8e32-81ef05b37b3a/image.png)
+
+## TRACE is Disabled
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/6aeac625-300d-40fa-8663-bd2c6414ff90/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/8fcfa528-29eb-4fe8-b182-dde4cc6d0f38/image.png)
+
+## User available in active directory
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/5024f5a6-4696-450c-9826-3c10a0d327c6/image.png)
+
+## Password Policy Weakness
+
+- **Weakness Identified**:
+    - **Minimum password length** is set to `4`, which is extremely weak.
+    - **Password history** maintains 24 previous passwords, but this doesn't mitigate short or weak passwords.
+    - **No account lockout threshold** is configured, meaning brute-force attacks won't trigger a lockout.
+- **Vulnerabilities**:
+    - Accounts are highly susceptible to brute-forcing.
+    - Weak passwords could allow privilege escalation if an admin account is compromised.
+        
+        ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/1695f4d7-f494-4f16-93f7-73d1ef905acc/image.png)
+        
+        **Accounts with Password Never Expires**
+        
+- **Accounts Identified**:
+    - `Administrator`
+    - `Guest`
+    - `DefaultAccount`
+    - User accounts like `Ravi Sharma`, `Mamta Mohan`, and `Sanjay Shivam` also have `PasswordNeverExpires`.
+- **Vulnerabilities**:
+    - Accounts with `PasswordNeverExpires` are a critical risk if compromised. These accounts could be leveraged for persistent access.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/86594d3e-b302-49c0-a064-ed42aa1c77b4/image.png)
+
+## **Kerberos Pre-Authentication Disabled**
+
+- **Affected Accounts**:
+    - `Manisha Omkar`
+    - `Anand Renuka`
+    - `Pooja Ritu`
+    - `Ritu Chitra`
+- **Vulnerabilities**:
+    - Accounts with Kerberos pre-authentication disabled are susceptible to **AS-REP roasting**, where attackers can request Kerberos Ticket Granting Tickets (TGTs) and crack them offline
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/12a31603-564a-4bbf-9c38-4dc84f043741/image.png)
+
+## **Group Policy Objects (GPOs)**
+
+- **Identified GPOs**:
+    - `Default Domain Policy`
+    - `Default Domain Controllers Policy`
+    - `AddPrinter`
+- **Potential Misconfigurations**:
+    - Check if any GPOs contain insecure configurations, such as scripts with hardcoded credentials or excessive permissions.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/94ec674a-75f7-40c2-aea2-24dcb6e8b1e1/image.png)
+
+enumerate user information 
+
+![Screenshot 2024-12-09 230934.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/22e74a81-275d-4831-b2f8-494756191439/Screenshot_2024-12-09_230934.png)
+
+![Screenshot 2024-12-09 231106.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/324d8aa9-c723-4948-97e2-a5ce4c2014bd/Screenshot_2024-12-09_231106.png)
+
+Extracted Information from Mimikatz Output:
+
+NTLM Hashes:
+6de00c52dbabb0e95c074e3006fcf36e       ⇒ password@123
+5bcf00fd9eef3832f1eba6985b9f77a9         ⇒ 
+
+SHA1 Hashes:
+e4150fa944a8f03c1d44f339b35ec9a0bf961dec
+0194111b7d95357a72034b2200a1594c321abd3d
+
+Kerberos Passwords:
+
+## Impacket-sercetsdump
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/e48d5ad2-670f-4a60-8f46-2517a8f82336/image.png)
+
+[impacket-secretdump.txt](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/a479f84b-f95e-48b3-9c63-000e001a6bd0/impacket-secretdump.txt)
+
+## Impacket-psexec
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/ed18fd18-6297-4c7b-b5f0-cd3763f4193b/image.png)
+
+### using impacket-tickerter able to create .ccache to authenticate through kerberos
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/d705ca49-df1c-4631-b5d8-83993d458f7a/image.png)
+
+### Enumerating shares with hashes
+
+![Screenshot 2024-12-11 021836.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/56aa5d32-6863-47d7-a303-b5eb9d8eeb97/Screenshot_2024-12-11_021836.png)
+
+![Screenshot 2024-12-11 021811.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/02d3027b-6931-429c-82be-ab6b0e08aa82/Screenshot_2024-12-11_021811.png)
+
+![Screenshot 2024-12-11 021745.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/8f0cc47a-5844-490e-ae9f-28ff296bf9b7/Screenshot_2024-12-11_021745.png)
+
+# New findings
+
+# Password Spraying
+
+### **Description**
+
+Password spraying was used to test a single weak password (`P@ssword123`) across multiple accounts, exploiting poor password policies and monitoring.
+
+### **Verification Steps**
+
+1. Tested `P@ssword123` on multiple accounts using netexec
+
+### **Proof of Concept (PoC)**
+
+The following steps were executed to verify the vulnerability:
+
+1. Utilized the `netexec` tool to test the account credentials:
+
+**Evidence**:
+
+- Screenshot of `netexec` output showing successful logins.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/e5e472ce-f06b-4e20-8230-885edd1e6d2a/image.png)
+
+# Weak Password for Shared Account – `bharat.anand`
+
+### **Description**
+
+The shared account `bharat.anand` was found to use a weak, guessable password (`P@ssword123`), increasing the risk of unauthorized access and reducing accountability due to shared usage.
+
+### **Verification Steps**
+
+1. **Credentials Tested**:
+    - Username: `bharat.anand`
+    - Password: `P@ssword123`
+2. **Tool**: `netexec`
+3. **Result**: Successful login, confirming access to sensitive resources.
+
+### **Proof of Concept (PoC)**
+
+The following steps were executed to verify the vulnerability:
+
+1. Utilized the `netexec` tool to test the account credentials:
+    - **Username**: `bharat.anand`
+    - **Password**: `P@ssword123`
+2. The tool successfully authenticated the shared account and validated access to critical resources.
+
+**Evidence**:
+
+- **Screenshot**: Include output of successful login using `netexec`.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/b481caf0-b9f4-4a31-b97c-205e648a8b48/image.png)
+
+### **Domain User Enumeration - Authenticated**
+
+---
+
+### **Description**
+
+Authenticated user enumeration was performed on the domain, identifying all user accounts within Active Directory. This vulnerability enables attackers to gather a list of valid usernames for further attacks, such as password spraying or phishing.
+
+### **Verification Steps**
+
+1. Access to a low-privileged domain account.
+2. **Tools Used**: `netexec`
+
+**Proof of Concept (PoC)**:
+
+**Using `netexec` : Retrieved a list of usernames**
+
+**Evidence**:
+
+- Attach `netexec` or PowerShell output containing the list of enumerated users.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/8234af5a-504c-4c32-9021-9d6793c0cec8/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/bbdab58a-26ae-487b-8100-c2f9c0780b4c/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/e9a3410f-9051-48c9-9814-20aa39f11575/image.png)
+
+# NTDS Hash  Cracking
+
+### **Description**
+
+The NTDS.dit file contains Active Directory credentials in the form of hashed passwords. It is a primary target during post-exploitation because it enables attackers to recover plaintext passwords or reuse NTLM hashes for pass-the-hash (PtH) attacks.
+
+Verification Steps
+
+**Cracking NTLM Hashes**:
+
+- NTLM hashes were cracked using the `hashcat` tool.
+
+Proof of Concept (PoC)
+
+- Successfully cracked multiple NTLM hashes, revealing plaintext passwords.
+
+**Evidence**:
+
+- **Cracked Passwords**: Hashcat output showing cracked NTLM hashes and plaintext credentials.
+- **Screenshot**: Include screenshots of both hash dumping and successful cracking.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/0401a8d9-c0d2-4e59-93aa-19458c2eb3f3/image.png)
+
+# **Domain Enumeration using BloodHound**
+
+### **Description**
+
+BloodHound is a tool used to enumerate Active Directory (AD) environments, identifying relationships, privilege paths, and potential attack vectors.By analyzing user, group, computer, and trust relationships, an attacker can identify misconfiguration leading to privilege escalation and domain compromise.
+
+### **Verification Steps**
+
+1. **Blood Hound Data Collection**:
+    - Tool used: `SharpHound` (Blood Hound data collector).
+    - **Data Ingestion and Analysis**
+
+### **Proof of Concept (PoC)**
+
+The following key findings were identified:
+
+1. **Excessive Permissions**:
+    - Users with `GenericAll` or `WriteDACL` permissions over high-privilege accounts or groups.
+2. **Privileged Accounts**:
+    - Identified Domain Admin accounts and their relations.
+3. **Delegation Misconfiguration**:
+    - Trust relationships and Kerberos delegation vulnerabilities discovered.
+
+**Evidence**:
+
+- Screenshot of Blood Hound queries (e.g., "Shortest Path to Domain Admin").
+- Exported relationships and permissions graph.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/a954ba2a-0b86-4ffb-bd46-8b279bffde5c/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/f28dd080-ca3d-41ba-9c30-b609899bbf8a/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/eeb6af27-6228-44d8-9203-6c5cc9b64324/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/3a9ba977-301e-48a7-b239-86b10cd8c1ee/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/86be960f-554d-4d75-b72e-8392575e646e/image.png)
+
+# **Privilege Escalation to aarav.shalini Abusing WriteOwner Rights**
+
+### **Description**
+
+The user `aarav.shalini` was identified with **WriteOwner** permissions. This privilege allows an attacker to take ownership of the user object, modify its access control lists (ACLs), and escalate privileges. By using the Impacket toolset, this misconfiguration was exploited to gain unauthorized access to the target account.
+
+| **Issue** | **Severity** | **CVSS Score** |
+| --- | --- | --- |
+| **Privilege Escalation**: WriteOwner/GenericWrite Rights Abuse on Accounts (`aarav.shalini`) | High | 8.1 |
+| Abuse of **GenericWrite/WriteDACL Rights** over Critical Groups (e.g., Senior Management Group) | High | 8.1 |
+| Misconfigured Object Permissions Allow Group Escalation | High | 8.1 |
+
+### **Verification Steps**
+
+1. **Identify WriteOwner Permissions**:
+    - Used **BloodHound** to confirm the **WriteOwner** rights on the `aarav.shalini` account.
+    - Query: **Find Principals with WriteOwner Permissions**.
+2. **Take Ownership Using Impacket**:
+3. **Modify ACL to Grant FullControl**:
+- After taking ownership, **Impacket** was used to modify the ACL and grant `FullControl`.
+- **Command to Add ACL**:
+
+### **Proof of Concept (PoC)**
+
+The following steps demonstrate privilege escalation:
+
+1. **BloodHound Results**:
+    - Confirmed WriteOwner rights on `aarav.shalini`.
+2. **Exploit Using Impacket**:
+    - Took ownership of the `aarav.shalini` user object.
+    - Modified ACL to grant `FullControl`.
+
+**Evidence**:
+
+- **Screenshot**: BloodHound graph showing WriteOwner rights.
+- **Impacket Output**: Successful ownership transfer and ACL modification.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/1077a06d-a098-4c18-97cc-ca46a1689bca/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/61da3cf8-7153-4651-a743-82d84c44b0bd/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/7b69583a-439a-4c6a-80d9-697f94c8c4f2/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/b78bdbe9-2bcc-4ccd-b8ae-2d6cbdd17ded/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/3ba0736f-9345-47a5-abe4-6f4e825d821b/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/d48ab5a2-fb7c-44be-951c-00cc72c193a1/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/d2fce466-521a-4a7f-a53a-6cbafda8faaa/image.png)
+
+### **Abusing GenericWrite Rights on Senior Management Group**
+
+### **Description**
+
+The **Development Group** was identified with **GenericWrite** rights over the **Senior Management Group** in Active Directory. The **GenericWrite** permission allows an attacker to modify attributes of the target group, including adding or removing group members.
+
+### **Verification Steps**
+
+1. **Identify GenericWrite Permissions**:
+    - Used `netexec` to confirm **GenericWrite** rights for the Development Group on the Senior Management Group.
+2. **Verify Privilege Escalation**:
+- Confirmed that the attacker account is now a member of the **Senior Management Group** using
+
+### **Proof of Concept (PoC)**
+
+The following steps demonstrate the privilege escalation:
+
+1. **netexec Results**:
+    - Identified **GenericWrite** rights for Development Group on Senior Management Group.
+
+**Evidence**:
+
+- **Screenshot**: `netexec` graph showing GenericWrite permissions.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/5249f9f2-6345-4fb7-901a-a36f2a6a04f1/image.png)
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/9348f547-a72b-4480-b359-ba8ffaef78be/image.png)
+
+# info
+
+Zerologon Vulnerability
+
+### **Description**
+
+The **Zerologon** vulnerability (CVE-2020-1472) is a critical flaw in the **Netlogon Remote Protocol (MS-NRPC)**, which allows an attacker to manipulate the authentication process of a domain controller. By exploiting this vulnerability, an unauthenticated attacker can reset the machine account password of the domain controller, gaining full access to Active Directory services and leading to a complete domain compromise.
+
+Verification Steps:
+
+**Identify Vulnerable Domain Controller**:
+
+- Used `netexec`
+
+Proof of Concept (PoC)
+
+**Vulnerability Check**:
+
+- Output from `zerologon`
+
+**Evidence**:
+
+- **Screenshot**: Vulnerability detection and successful
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/cb7cc203-4508-42ae-8df5-065d6dbc7b92/image.png)
+
+- *Screenshot*: Include the output of the `netexec tools` showing that the service is vulnerable
+
+### **Lateral Movement Due to Compromised Credentials and NTLM Hash Reuse**
+
+---
+
+### **Description**
+
+The Active Directory environment allows **Lateral Movement** using discovered credentials or NTLM hashes. Attackers can leverage tools such as `runas` or `Invoke-Mimikatz` to gain access to multiple user accounts or systems. This flaw exposes sensitive systems and accounts to unauthorized access, expanding the attacker's foothold across the network.
+
+---
+
+### **Proof of Concept (PoC): Lateral Movement via NTLM Hash or Credentials**
+
+1. **Steps to Reproduce**:
+    - Obtain credentials or NTLM hashes using tools like **Mimikatz**.
+    - Use the compromised credentials to authenticate or reuse NTLM hashes.
+2. **Credential-Based Movement**
+    - Target User: `ritu.chitra`
+    - Command to Execute:
+        
+        ```bash
+        runas /netonly /user:ritu.chitra cmd.exe
+        ```
+        
+    - **Outcome**: Access to `ritu.chitra`'s account.
+3. **NTLM Hash Reuse (Pass-the-Hash)**
+    - Target User: `sharma_ravi`
+    - NTLM Hash: `a29f7623fd11550def0192de9246f46b`
+    - Command to Execute:
+        
+        ```bash
+        Invoke-Mimikatz -Command "sekurlsa::pth /user:sharma_ravi /domain:pezz.local /ntlm:a29f7623fd11550def0192de9246f46b"
+        ```
+        
+    - **Outcome**: Successfully open a session as `sharma_ravi`.
+    
+    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/57b4485b-8d98-41da-9380-1ec8d63cdd88/dc27ce1b-6d30-4514-b755-8a0031ce36da/image.png)
+    
+    - The same steps can be repeated for other affected users/accounts listed in the findings summary.
+
+---
+
+## **Affected Systems and Accounts**
+
+|  | **Target User/System** | **Method of Exploitation** | **Steps to Reproduce** |
+| --- | --- | --- | --- |
+|  | `ritu.chitra` | `runas` with discovered creds | Run `cmd.exe` with `runas` using `ritu.chitra`. |
+|  | `namrata.priya` | `runas` with discovered creds | Run `cmd.exe` with `runas` using `namrata.priya`. |
+|  | `divya.ganesh` | `runas` with discovered creds | Run `cmd.exe` with `runas` using `divya.ganesh`. |
+|  | `anjali.ritu` | `runas` with discovered creds | Run `cmd.exe` with `runas` using `anjali.ritu`. |
+|  | `raman.sharma` | `runas` with discovered creds | Run `cmd.exe` with `runas` using `raman.sharma`. |
+|  | `amit.kumar` | `runas` with discovered creds | Run `cmd.exe` with `runas` using `amit.kumar`. |
+|  | `deepika.verma` | `runas` with discovered creds | Run `cmd.exe` with `runas` using `deepika.verma`. |
+|  | `sharma_ravi` | NTLM Hash via `Invoke-Mimikatz` | Use `Invoke-Mimikatz` to pass the NTLM hash. |
+|  | `mamta` | NTLM Hash via `Invoke-Mimikatz` | Use `Invoke-Mimikatz` to pass the NTLM hash. |
+|  | `suresh.kumar` | NTLM Hash via `Invoke-Mimikatz` | Use `Invoke-Mimikatz` to pass the NTLM hash. |
+|  | `manisha.omkar` | NTLM Hash via `Invoke-Mimikatz` | Use `Invoke-Mimikatz` to pass the NTLM hash. |
+|  | `kamal.verma` | NTLM Hash via `Invoke-Mimikatz` | Use `Invoke-Mimikatz` to pass the NTLM hash. |
+|  | `nisha.kumar` | NTLM Hash via `Invoke-Mimikatz` | Use `Invoke-Mimikatz` to pass the NTLM hash. |
+|  | `gautam.lata` | NTLM Hash via `Invoke-Mimikatz` | Use `Invoke-Mimikatz` to open a PowerShell session. |
+|  | `reena.patil` | NTLM Hash via `Invoke-Mimikatz` | Use `Invoke-Mimikatz` to open a PowerShell session. |
+|  | `neha.sharma` | NTLM Hash via `Invoke-Mimikatz` | Use `Invoke-Mimikatz` to open a PowerShell session. |
+|  | `PC1$` | NTLM Hash via `Invoke-Mimikatz` | Use NTLM hash to open a session on the system. |
+|  | `PC2$` | NTLM Hash via `Invoke-Mimikatz` | Use NTLM hash to open a session on the system. |
+|  | `PC3$` | NTLM Hash via `Invoke-Mimikatz` | Use NTLM hash to open a session on the system. |
+
+### Vulnerability Report for Windows Server 2016
+
+---
+
+### **Summary**
+
+This report outlines the security vulnerabilities identified in Windows Server 2016, their potential impact, and recommended remediation measures. The assessment revealed several critical vulnerabilities that expose systems to risks such as remote code execution (RCE), privilege escalation, information disclosure, and bypassing security mechanisms. Mitigating these vulnerabilities is crucial for maintaining system integrity and protecting sensitive data.
+
+---
+
+### **Identified Vulnerabilities**
+
+1. **CVE-2016-7295**
+    - **Title:** Windows Common Log File System Driver Information Disclosure Vulnerability
+    - **Impact:** Sensitive information disclosure from process memory.
+    - **CVSS:** 5.5 (Medium)
+    - **Recommendation:** Apply the relevant Microsoft patches and ensure that unnecessary access to applications handling sensitive memory processes is restricted.
+2. **CVE-2016-7292**
+    - **Title:** Windows Installer Elevation of Privilege Vulnerability
+    - **Impact:** Local attackers can gain administrative privileges.
+    - **CVSS:** 7.8 (High)
+    - **Recommendation:** Validate the integrity of libraries loaded by the Windows Installer and apply security patches to prevent privilege escalation.
+3. **CVE-2016-7274**
+    - **Title:** Windows Uniscribe Remote Code Execution Vulnerability
+    - **Impact:** Remote attackers can execute arbitrary code via crafted websites.
+    - **CVSS:** 9.3 (Critical)
+    - **Recommendation:** Ensure browsers are updated and apply patches for Uniscribe to mitigate exploitation via web content.
+4. **CVE-2016-7272** and **CVE-2016-7273**
+    - **Title:** Windows Graphics Remote Code Execution Vulnerabilities
+    - **Impact:** Exploitation through maliciously crafted web content, allowing RCE.
+    - **CVSS:** 9.3 (Critical)
+    - **Recommendation:** Disable unnecessary features in the Graphics component and deploy available patches.
+5. **CVE-2016-7271**
+    - **Title:** Secure Kernel Mode Elevation of Privilege Vulnerability
+    - **Impact:** Local privilege escalation via VTL protection bypass.
+    - **CVSS:** 7.8 (High)
+    - **Recommendation:** Restrict access to vulnerable systems and apply system updates to secure kernel mode.
+6. **CVE-2016-7259**
+    - **Title:** Win32k Elevation of Privilege Vulnerability
+    - **Impact:** Local attackers gain higher privileges using kernel-mode drivers.
+    - **CVSS:** 7.8 (High)
+    - **Recommendation:** Regularly audit system permissions and patch kernel-mode vulnerabilities.
+7. **CVE-2016-7258**
+    - **Title:** Windows Kernel Memory Address Information Disclosure Vulnerability
+    - **Impact:** Information disclosure enabling further attacks.
+    - **CVSS:** 5.5 (Medium)
+    - **Recommendation:** Limit exposure of processes to untrusted applications and apply relevant kernel updates.
+8. **CVE-2016-7256**
+    - **Title:** Open Type Font Remote Code Execution Vulnerability
+    - **Impact:** RCE via malicious OpenType font files.
+    - **CVSS:** 9.3 (Critical)
+    - **Recommendation:** Implement input validation for fonts and ensure the atmfd.dll module is patched.
+9. **CVE-2016-7237**
+    - **Title:** Local Security Authority Subsystem Service (LSASS) Denial of Service Vulnerability
+    - **Impact:** System hangs caused by remote authenticated attackers.
+    - **CVSS:** 6.8 (Medium)
+    - **Recommendation:** Apply patches and strengthen authentication mechanisms to minimize exposure.
+
+---
+
+### **Risk Assessment**
+
+| **Vulnerability** | **Impact** | **Exploitability** | **Priority** |
+| --- | --- | --- | --- |
+| CVE-2016-7295 | Information Disclosure | Low | Medium |
+| CVE-2016-7292 | Privilege Escalation | Medium | High |
+| CVE-2016-7274 | Remote Code Execution | High | Critical |
+| CVE-2016-7256 | Remote Code Execution | High | Critical |
+| CVE-2016-7237 | Denial of Service | Medium | Medium |
+
+---
+
+### **Recommendations**
+
+1. **Patching**: Apply Microsoft-released patches for identified vulnerabilities as a priority.
+2. **Network Segmentation**: Isolate critical servers to reduce attack surfaces.
+3. **Endpoint Protection**: Deploy advanced endpoint protection to detect and mitigate exploit attempts.
+4. **Security Hardening**: Implement least privilege principles and disable unused services.
+5. **Monitoring**: Continuously monitor logs for anomalous activities indicative of potential exploitation attempts.
+
+---
+
+## **Windows Server 2016: Missing Security Updates and Vulnerabilities**
+
+### **1. Critical Vulnerabilities**
+
+| **CVE** | **Vulnerability Name** | **Description** | **Severity** |
+| --- | --- | --- | --- |
+| **CVE-2020-1472** | Zerologon Vulnerability | Allows privilege escalation via weak cryptography in Netlogon protocol. | Critical |
+| **CVE-2020-1350** | Windows DNS Server Remote Code Execution | Remote execution vulnerability in DNS Server. | Critical |
+| **CVE-2024-49112** | LDAP Remote Code Execution | Exploitation via Windows Lightweight Directory Access Protocol (LDAP). | Critical |
+| **CVE-2024-43639** | KDC Proxy Remote Code Execution | Allows remote code execution through the Key Distribution Center Proxy. | Critical |
+| **CVE-2023-36910/36911** | Microsoft Message Queuing (MSMQ) Remote Code Execution | RCE vulnerability in MSMQ. | Critical |
+| **CVE-2023-36397** | Windows PGM Remote Code Execution | Allows RCE via Pragmatic General Multicast (PGM). | Critical |
+| **CVE-2023-28250/29363** | Windows PGM Remote Code Execution | PGM service vulnerable to remote code execution attacks. | Critical |
+| **CVE-2020-0610/0609** | Remote Desktop Gateway RCE | RCE vulnerabilities via Remote Desktop Gateway. | Critical |
+| **CVE-2023-24941/24943** | Windows Network File System (NFS) RCE | NFS vulnerable to remote code execution. | Critical |
+| **CVE-2022-26809** | Remote Procedure Call Runtime RCE | Vulnerability in Windows RPC runtime leading to RCE. | Critical |
+
+---
+
+### **2. High-Severity Vulnerabilities**
+
+| **CVE** | **Vulnerability Name** | **Description** | **Severity** |
+| --- | --- | --- | --- |
+| **CVE-2019-1181/1182** | Remote Desktop Services RCE | RCE in RDS (BlueKeep-like vulnerability). | High |
+| **CVE-2024-38077/38076** | Windows Remote Desktop Licensing Service RCE | Licensing service vulnerable to code execution. | High |
+| **CVE-2017-11771/8589** | Windows Search RCE | Exploitation of Windows Search to achieve remote execution. | High |
+| **CVE-2018-8476/8626** | DNS Server Heap Overflow and RCE | Windows DNS Server vulnerable to heap overflow leading to execution. | High |
+| **CVE-2023-35385/35349** | MSMQ Remote Code Execution | Allows attackers to execute code remotely via MSMQ. | High |
+| **CVE-2020-17051** | Windows Network File System RCE | Network File System remote code execution vulnerability. | High |
+| **CVE-2024-38140** | Windows Reliable Multicast Transport Driver RCE | Allows attackers to execute code remotely via RMCAST. | High |
+| **CVE-2024-30080** | MSMQ Remote Code Execution | Remote code execution in Microsoft Message Queuing. | High |
+
+---
+
+### **3. Missing Security Updates (KB Patches)**
+
+| **KB Number** | **Description** |
+| --- | --- |
+| KB4022715 | Missing cumulative security updates. |
+| KB4025339 | Security update for Windows. |
+| KB4038782 | Critical update to fix vulnerabilities. |
+| KB4457131 | Security improvements for remote execution flaws. |
+| KB4487026 | Protection against SMB protocol vulnerabilities. |
+| KB5000803 | Update addressing RDP vulnerabilities. |
+| KB5003197 | Security update for Windows Server. |
+| KB5012596 | Update to resolve privilege escalation flaws. |
+| KB5022838 | Patch for LDAP and RPC security issues. |
+| KB5031362 | Fixes for recent critical vulnerabilities. |
+
+---
+
+### **4. Protocol and Service Misconfigurations**
+
+| **Issue** | **Description** | **Severity** |
+| --- | --- | --- |
+| **SMBv1 Enabled** | SMB Protocol Version 1 is enabled, exposing the system to known exploits (e.g., EternalBlue). | High |
+| **Spooler Service Enabled** | Print Spooler service is enabled, making the system vulnerable to PrintNightmare exploits. | High |
+| **PetitPotam Vulnerability** | Allows NTLM relay attacks to compromise domain controllers. | High |
+| **DFSCoerce Vulnerability** | Allows coercion of domain controllers to authenticate with an attacker-controlled system. | High |
+
+---
+
+### **5. Persistence and Lateral Movement Risks**
+
+| **Attack** | **Description** | **Severity** |
+| --- | --- | --- |
+| **Golden Ticket Attack** | Attackers forge Kerberos tickets to gain long-term persistence in the domain. | Critical |
+| **Silver Ticket Attack** | Exploits service accounts (e.g., `exchange_svc$`, `mssql_svc$`) to forge Kerberos tickets. | High |
+| **Skeleton Key Attack** | Allows attackers to install a malicious authentication backdoor on the domain controller. | High |
+| **DSRM Password Persistence** | Domain persistence achieved via Directory Services Restore Mode (DSRM) credentials. | High |
+
+---
+
+### **Summary and Recommendations**
+
+The following key security measures are **highly recommended** to mitigate these vulnerabilities:
+
+1. **Patch Management**: Immediately apply all missing security updates (KB patches).
+2. **Disable Legacy Protocols**: Disable SMBv1 and Print Spooler where not required.
+3. **Monitor LDAP/RPC Traffic**: Implement monitoring for anomalous LDAP and RPC activities.
+4. **Privilege Management**: Limit domain replication permissions and monitor NTLM relay attempts.
+5.
